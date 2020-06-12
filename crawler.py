@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import requests
 
 root_url = 'https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core'
-download_folder = 'data/jackson-core'
+download_folder = '~/.m2/repository/com/fasterxml/jackson/core/jackson-core'
 
 
 def list_versions(url):
@@ -107,11 +107,7 @@ def make_snapshots(files_info, root_folder):
 if __name__ == '__main__':
     versions = list_versions(root_url)
     list_files = []
-    i = 0
     for version_url in versions:
         res = download_version(version_url, download_folder)
         list_files.extend(res)
-        i += 1
-        if i >= 4:
-            break
     make_snapshots(list_files, download_folder)
